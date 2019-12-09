@@ -79,3 +79,7 @@ fastlane/readme.md
 /captures
 .externalNativeBuild
 .cxx
+
+.local
+*.pdf
+!docs/dokumentation.pdf
