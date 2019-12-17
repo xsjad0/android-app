@@ -11,4 +11,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_screenshots">Screenshots</string>
     <string name="menu_camera">Camera</string>
+
+    <string name="welcome_text">Hey Guys</string>
 </resources>
