@@ -18,26 +18,15 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="dev.gui.imageflinger.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_camera"
+        android:name="dev.gui.imageflinger.ui.camera.CameraFragment"
+        android:label="@string/menu_camera"
+        tools:layout="@layout/fragment_camera" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="dev.gui.imageflinger.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_screenshots"
+        android:name="dev.gui.imageflinger.ui.screenshots.ScreenshotFragment"
+        android:label="@string/menu_screenshots"
+        tools:layout="@layout/fragment_screenshots" />
 
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="dev.gui.imageflinger.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="dev.gui.imageflinger.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>

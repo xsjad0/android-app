@@ -1,4 +1,4 @@
-package dev.gui.imageflinger.ui.send;
+package dev.gui.imageflinger.ui.camera;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import dev.gui.imageflinger.R;
 
-public class SendFragment extends Fragment {
+public class CameraFragment extends Fragment {
 
-    private SendViewModel sendViewModel;
+    private CameraViewModel cameraViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_send, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
+        cameraViewModel =
+                ViewModelProviders.of(this).get(CameraViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_camera, container, false);
+        final TextView textView = root.findViewById(R.id.text_camera);
+        cameraViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
