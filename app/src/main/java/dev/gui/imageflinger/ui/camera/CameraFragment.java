@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -32,11 +34,13 @@ public class CameraFragment extends Fragment {
     private View root;
     private TextView textView;
     private ImageView imageView;
+    private GestureDetectorCompat mDetector;
 
     private Button buttonNext;
     private Button buttonPrev;
 
     private final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 42;
+    private final String DEBUG_TAG = "CameraFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +49,7 @@ public class CameraFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_camera, container, false);
         textView = root.findViewById(R.id.textView_camera);
         imageView = root.findViewById(R.id.imageView_camera);
+        mDetector = new GestureDetectorCompat(this.getActivity(), new ImageFlingerGestureListener());
 
         buttonNext = root.findViewById(R.id.imageView_next);
         buttonPrev = root.findViewById(R.id.imageView_prev);
@@ -63,7 +68,6 @@ public class CameraFragment extends Fragment {
                     // permission was granted, yay! Allow iteration through the pictures
                     textView.setText("");
                     linkViewModel();
-                    addTouchListener();
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -112,39 +116,27 @@ public class CameraFragment extends Fragment {
         }
     }
 
+    private void addTouchListener() {
+        root.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
     private void linkViewModel() {
         // Permission has already been granted
         cameraViewModel = ViewModelProviders.of(this).get(CameraViewModel.class);
         cameraViewModel.getImage().observe(this, new Observer<File>() {
             @Override
             public void onChanged(@Nullable File file) {
-                Log.e("CameraFragment", "onChanged()");
+                Log.e(DEBUG_TAG, "onChanged()");
                 if (file != null) {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     imageView.setImageBitmap(bitmap);
-                }
-            }
-        });
-    }
-
-    private void addTouchListener(){
-        root.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case (MotionEvent.ACTION_UP):
-                        Log.e("TOUCH", "ACTION_UP");
-                        return true;
-                    case (MotionEvent.ACTION_DOWN):
-                        Log.e("TOUCH", "ACTION_DOWN");
-
-                    case (MotionEvent.ACTION_MOVE):
-                        Log.e("TOUCH", "ACTION_MOVE");
-
-                    default:
-                        Log.e("TOUCH", "DEFAULT");
-                        return root.onTouchEvent(event);
                 }
             }
         });
@@ -155,7 +147,7 @@ public class CameraFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Log.e("BUTTON", "BUTTON NEXT");
+                Log.e(DEBUG_TAG, "button next");
                 cameraViewModel.next(Gestures.LEFT.ordinal());
             }
         });
@@ -164,7 +156,7 @@ public class CameraFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Log.e("BUTTON", "BUTTON NEXT");
+                Log.e(DEBUG_TAG, "button previous");
                 cameraViewModel.next(Gestures.RIGHT.ordinal());
             }
         });
@@ -172,5 +164,21 @@ public class CameraFragment extends Fragment {
 
     private void delete() {
         cameraViewModel.next(Gestures.UP.ordinal());
+    }
+
+    class ImageFlingerGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.e(DEBUG_TAG, "onDown" + event.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Log.e(DEBUG_TAG, "onFling" + e1.toString() + e2.toString());
+            return true;
+        }
+
     }
 }
