@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="next"
         android:layout_gravity="top"
+        android:visibility="invisible"
         />
 
     <Button
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="previous"
         android:layout_gravity="bottom"
+        android:visibility="invisible"
         />
 
     <TextView
