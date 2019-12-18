@@ -9,17 +9,32 @@
         android:id="@+id/imageView_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/imageView_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="next"
+        android:layout_gravity="top"
+        />
+
+    <Button
+        android:id="@+id/imageView_prev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="previous"
+        android:layout_gravity="bottom"
         />
 
     <TextView
         android:id="@+id/textView_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:textSize="40dp"
-        android:textColor="@color/colorPrimaryDark"
         />
 </FrameLayout>

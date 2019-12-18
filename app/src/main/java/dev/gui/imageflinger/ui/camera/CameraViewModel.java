@@ -33,13 +33,24 @@ public class CameraViewModel extends ViewModel {
         return mImage;
     }
 
-    public void flingeRight() {
-        if (index < images.length - 1) {
-            ++index;
+    public void next(int direction) {
+        if (direction == 0) {
+            if (index < images.length - 1) {
+                ++index;
+            }
+            else {
+                index = 0;
+            }
         }
         else {
-            index = 0;
+            if (index > 0) {
+                --index;
+            }
+            else {
+                index = images.length -1;
+            }
         }
+
         mImage.setValue(images[index]);
     }
 
