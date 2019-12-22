@@ -1,4 +1,4 @@
-package dev.gui.imageflinger.ui.camera;
+package dev.gui.imageflinger.ui.telegram;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,32 +25,25 @@ import java.io.File;
 
 import dev.gui.imageflinger.R;
 import dev.gui.imageflinger.ui.GestureListener;
-import dev.gui.imageflinger.ui.Gestures;
 
-public class CameraFragment extends Fragment {
+public class TelegramFragment extends Fragment {
 
-    private CameraViewModel cameraViewModel;
+    private TelegramViewModel telegramViewModel;
     private View root;
     private TextView textView;
     private ImageView imageView;
     private GestureDetectorCompat mDetector;
 
-    private Button buttonNext;
-    private Button buttonPrev;
-
     private final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 42;
-    private final String DEBUG_TAG = "CameraFragment";
+    private final String DEBUG_TAG = "TelegramFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_camera, container, false);
-        textView = root.findViewById(R.id.textView_camera);
-        imageView = root.findViewById(R.id.imageView_camera);
-
-        // nbuttonNext = root.findViewById(R.id.imageView_next);
-        // buttonPrev = root.findViewById(R.id.imageView_prev);
+        root = inflater.inflate(R.layout.fragment_telegram, container, false);
+        textView = root.findViewById(R.id.textView_telegram);
+        imageView = root.findViewById(R.id.imageView_telegram);
 
         checkPermission();
 
@@ -112,12 +104,11 @@ public class CameraFragment extends Fragment {
         } else {
             linkViewModel();
             addTouchListener();
-            // addButtonListener();
         }
     }
 
     private void addTouchListener() {
-        mDetector = new GestureDetectorCompat(this.getActivity(), new GestureListener(cameraViewModel));
+        mDetector = new GestureDetectorCompat(this.getActivity(), new GestureListener(telegramViewModel));
         root.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -130,8 +121,8 @@ public class CameraFragment extends Fragment {
 
     private void linkViewModel() {
         // Permission has already been granted
-        cameraViewModel = ViewModelProviders.of(this).get(CameraViewModel.class);
-        cameraViewModel.getImage().observe(this, new Observer<File>() {
+        telegramViewModel = ViewModelProviders.of(this).get(TelegramViewModel.class);
+        telegramViewModel.getImage().observe(this, new Observer<File>() {
             @Override
             public void onChanged(@Nullable File file) {
                 Log.e(DEBUG_TAG, "onChanged()");
@@ -142,29 +133,4 @@ public class CameraFragment extends Fragment {
             }
         });
     }
-
-    private void addButtonListener() {
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.e(DEBUG_TAG, "button next");
-                cameraViewModel.next(Gestures.RIGHT_TO_LEFT.ordinal());
-            }
-        });
-
-        buttonPrev.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.e(DEBUG_TAG, "button previous");
-                cameraViewModel.next(Gestures.LEFT_TO_RIGHT.ordinal());
-            }
-        });
-    }
-
-    private void delete() {
-        cameraViewModel.next(Gestures.UP.ordinal());
-    }
-
 }

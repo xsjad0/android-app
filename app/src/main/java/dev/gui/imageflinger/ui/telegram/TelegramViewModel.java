@@ -1,7 +1,5 @@
-package dev.gui.imageflinger.ui.camera;
+package dev.gui.imageflinger.ui.telegram;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Environment;
 
 import androidx.lifecycle.LiveData;
@@ -10,19 +8,20 @@ import androidx.lifecycle.ViewModel;
 
 import java.io.File;
 
-public class CameraViewModel extends ViewModel {
+public class TelegramViewModel extends ViewModel {
 
     private Integer index = 0;
+    private String path;
     private File[] images;
     private MutableLiveData<File> mImage;
 
-    public CameraViewModel() {
+    public TelegramViewModel() {
         mImage = new MutableLiveData<>();
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/Camera";
+        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/Telegram";
 
         File dir = new File(path);
         images = dir.listFiles();
-        if ((images != null) && (images[index].isFile())) {
+        if (images[index].isFile()) {
             mImage.setValue(images[index]);
         }
     }
