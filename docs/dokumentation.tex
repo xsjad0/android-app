@@ -1,8 +1,8 @@
 \input{settings/settings.tex}
 
-\title{\textbf{GUI-Entwicklung}\\\textit{Editor-Anwendung unter Eclipse/SWT}}
+\title{\textbf{GUI-Entwicklung}\\\textit{Entwicklung einer Android-App\\zur Anzeige von Bildern}}
 \author{Team:\\Marius Schenzle\\Joel Wielath\\Joey Gopp}
-\date{25.10.2019}
+\date{12.01.2020}
 
 \begin{document}
 \doublespacing
@@ -14,24 +14,64 @@
 \singlespacing
 \pagenumbering{arabic}
 
-%% Kapitel GUI - Entwurf
-\input{sections/gui_entwurf.tex}
 \newpage
+\section{Beschreibung}
 
-%% Kapitel GUI - Implementierung
-\input{sections/gui_implementierung.tex}
+Aufgabe ist es eine Android-App zu entwickeln, die Bilder aus verschiedenen Verzeichnissen anzeigt und diese über Wischgesten durchblättern lässt.
+Es standen zwei \textit{Designvarianten} der Android-App zur Auswahl.
+Die hier gewählte ist die Variante Nummer zwei. Diese besteht aus einer \textit{NavigationBar}, um zwischen den Bilder-Verzeichnissen zu wechseln und einem \textit{FloatingActionButton}, um die App zu beenden. Sobald ein Verzeichnis über die Navigationleiste ausgewählt wurde, wird die Berechtigung für den Zugriff auf die SD-Karte, auf der die Bilder liegen, abgefragt. Wird der Zugriff gewährt, können die Bilder im jeweiligen Verzeichnis mit Wischgesten von links nach rechts rückwärts bzw. von rechts nach links vorwärts durchgeschaut werden. Falls der Zugriff verweigert wird, zeigt die App einen leeren Bildschirm an. Die Berechtigung wird bei jeder Auswahl in der Navigationleiste erneut abgefragt.
+
 \newpage
+\section{Architektur}
 
-%% Kapitel Internationalisierung
-\input{sections/internationalisierung.tex}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figures/classdiagram.png}
+    \caption{Architektur der Android-Applikation}
+    \label{fig:Architektur}
+\end{figure}
+
+\section{Android-App}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.3\linewidth}
+      \includegraphics[width=1\linewidth]{figures/home.jpg}
+      \caption{Startbildschirm}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\linewidth}
+      \includegraphics[width=1\linewidth]{figures/nav.jpg}
+      \caption{Navigationsleiste}
+    \end{subfigure}
+    \caption{Startbildschirm und Navigationsleiste}
+    \label{fig:start_nav}
+\end{figure}
+
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.3\linewidth}
+    \includegraphics[width=1\linewidth]{figures/camera.jpg}
+    \caption{Kamera}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\linewidth}
+    \includegraphics[width=1\linewidth]{figures/telegram.jpg}
+    \caption{Telegram}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\linewidth}
+    \includegraphics[width=1\linewidth]{figures/screenshots.jpg}
+    \caption{Screenshots}
+  \end{subfigure}
+  \caption{Bilderverzeichnisse}
+  \label{fig:folders}
+\end{figure}
+
 \newpage
-
 % \section{Abbildungsverzeichnis}
 \listoffigures
 \newpage
 
 % \section{Auflistungen}
-\lstlistoflistings
+% \lstlistoflistings
 
 \end{document}
 
