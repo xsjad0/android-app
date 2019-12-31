@@ -83,3 +83,4 @@ fastlane/readme.md
 .local
 *.pdf
 !docs/dokumentation.pdf
+*.lol
