@@ -1,0 +1,154 @@
+@startuml image-flinger
+skinparam ClassAttributeIconSize 0
+
+package imageflinger {
+
+
+class MainActivity {
+    -AppBarConfiguration mAppBarConfiguration
+    #onCreate()
+    #onCreateOptionsMenu()
+    #onSupportNavigateUp()
+}
+
+package ui {
+
+enum Gestures {
+    LEFT_TO_RIGHT
+    RIGHT_TO_LEFT
+    UP
+}
+
+class GestureListener {
+    -int SWIPTE_MIN_DISTANCE = 120
+    -int SWIPTE_MAX_OFF_PATH = 250
+    -int SWIPTE_THRESHOLD_VELOCITY = 200
+    -ViewModel viewModel
+    +GestureListener(ViewModel)
+    +onDown(MotionEvent)
+    +onFling(MotionEvent e1, MotionEvent e2, float velocity1, float velocity2)
+
+    -action(int directio)
+}
+
+package home {
+
+class HomeFragment {
+    -HomeViewModel homeViewModel
+    +onCreateView(LayoutInflater, ViewGroup, Bundle): View
+}
+
+class HomeViewModel {
+    -MutableLiveData<String> mText
+    +HomeViewModel()
+    +getText(): LiveData<String>
+}
+
+}
+
+package camera {
+
+class CameraFragment {
+    -int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42
+    -CameraViewModel cameraViewModel
+    -View root
+    -TextView textView
+    -ImageView imageView
+    -GestureDetectorCompat mDetector
+    -checkPermission()
+    -addTouchListener()
+    -linkViewModel()
+    +onCreateView(LayoutInflater, ViewGroup, Bundle): View
+    +onRequestPermissionsResult(int, String[], int[])
+}
+
+class CameraViewModel {
+    -int index
+    -File[] images
+    -MutableLiveData<File> mImage
+    +CameraViewModel()
+    +getImage(): LiveData<File>
+    +next()
+}
+
+}
+
+package telegram {
+
+class TelegramFragment {
+    -int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42
+    -CameraViewModel cameraViewModel
+    -View root
+    -TextView textView
+    -ImageView imageView
+    -GestureDetectorCompat mDetector
+    -checkPermission()
+    -addTouchListener()
+    -linkViewModel()
+    +onCreateView(LayoutInflater, ViewGroup, Bundle): View
+    +onRequestPermissionsResult(int, String[], int[])
+}
+
+class TelegramViewModel {
+    -int index
+    -File[] images
+    -MutableLiveData<File> mImage
+    +CameraViewModel()
+    +getImage(): LiveData<File>
+    +next()
+}
+
+}
+
+package screenshot {
+
+class ScreenshotFragment {
+    -int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42
+    -CameraViewModel cameraViewModel
+    -View root
+    -TextView textView
+    -ImageView imageView
+    -GestureDetectorCompat mDetector
+    -checkPermission()
+    -addTouchListener()
+    -linkViewModel()
+    +onCreateView(LayoutInflater, ViewGroup, Bundle): View
+    +onRequestPermissionsResult(int, String[], int[])
+}
+
+class ScreenshotViewModel {
+    -int index
+    -File[] images
+    -MutableLiveData<File> mImage
+    +CameraViewModel()
+    +getImage(): LiveData<File>
+    +next()
+}
+}
+}
+}
+
+class ViewModel {
+}
+class SimpleGestureListener {
+}
+
+home <-[hidden]- screenshot
+screenshot <-[hidden]- telegram
+telegram <-[hidden]- camera
+GestureListener <-[hidden] Gestures
+GestureListener <-[hidden]- home
+
+CameraFragment *- CameraViewModel
+HomeFragment *- HomeViewModel
+ScreenshotFragment *- ScreenshotViewModel
+TelegramFragment *- TelegramViewModel
+
+ViewModel <|- CameraViewModel
+ViewModel <|- ScreenshotViewModel
+ViewModel <|- TelegramViewModel
+ViewModel <|- HomeViewModel
+
+SimpleGestureListener <|- GestureListener
+
+@enduml
